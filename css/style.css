@@ -1,0 +1,36 @@
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  background: #23242a;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+header img {
+  height: 64px;
+  width: auto;
+  filter: drop-shadow(0 2px 8px #0008);
+}
+
+footer {
+  background: #23242a;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+}
+
+footer nav a {
+  color: #8ecfff;
+  text-decoration: none;
+  margin: 0 0.5rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+footer nav a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
