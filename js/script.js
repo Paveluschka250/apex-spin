@@ -1,32 +1,40 @@
 
 function spin() {
   const boxes = document.querySelectorAll('.choice-box');
+  const weaponBoxes = document.querySelectorAll('.weapon-box');
   // Reihenfolge: zuerst das letzte, dann das erste, dann das mittlere Bild
-  // Index: 2 (letztes), 0 (erstes), 1 (mittleres)
   const spinOrder = [2, 0, 1];
   const spinDuration = [];
   spinOrder.forEach((_, i) => spinDuration[i] = 1200 + i * 600);
-  const intervalTime = 60; // ms, wie schnell die Bilder wechseln
+  const intervalTime = 60;
   let intervals = [];
-  let finished = 0;
 
-  // Für jede Box eine Animation starten
+  // Animation für Legenden
   boxes.forEach((box, idx) => {
-    let count = 0;
     intervals[idx] = setInterval(() => {
-      // Zufällige Legende für Animation
       const legend = legends[Math.floor(Math.random() * legends.length)];
       const img = box.querySelector('img.choice-img');
       const name = box.querySelector('p.choice-name');
       img.src = legend.img;
       img.alt = legend.name;
       name.textContent = legend.name;
-      count++;
     }, intervalTime);
   });
 
-  // Nach Ablauf der Zeit für jede Box das finale Bild setzen
-  // Die finalen Legenden werden vorher zufällig und eindeutig gewählt
+  // Animation für Waffen
+  let weaponIntervals = [];
+  weaponBoxes.forEach((wBox, idx) => {
+    weaponIntervals[idx] = setInterval(() => {
+      const weapon = weapons[Math.floor(Math.random() * weapons.length)];
+      const img = wBox.querySelector('img');
+      const name = wBox.querySelector('p');
+      img.src = weapon.img;
+      img.alt = weapon.name;
+      name.textContent = weapon.name;
+    }, intervalTime);
+  });
+
+  // Final Legenden auswählen
   const legendsCopy = legends.slice();
   for (let i = legendsCopy.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -34,7 +42,15 @@ function spin() {
   }
   const selected = legendsCopy.slice(0, 3);
 
-  // Die Boxen in der gewünschten Reihenfolge stoppen
+  // Final Waffen auswählen (2 verschiedene)
+  const weaponsCopy = weapons.slice();
+  for (let i = weaponsCopy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [weaponsCopy[i], weaponsCopy[j]] = [weaponsCopy[j], weaponsCopy[i]];
+  }
+  const selectedWeapons = weaponsCopy.slice(0, 2);
+
+  // Boxen in Reihenfolge stoppen
   spinOrder.forEach((boxIdx, i) => {
     setTimeout(() => {
       clearInterval(intervals[boxIdx]);
@@ -46,5 +62,18 @@ function spin() {
       img.alt = legend.name;
       name.textContent = legend.name;
     }, spinDuration[i]);
+  });
+
+  // Waffen-Animation stoppen und finale Waffen setzen
+  weaponBoxes.forEach((wBox, idx) => {
+    setTimeout(() => {
+      clearInterval(weaponIntervals[idx]);
+      const weapon = selectedWeapons[idx];
+      const img = wBox.querySelector('img');
+      const name = wBox.querySelector('p');
+      img.src = weapon.img;
+      img.alt = weapon.name;
+      name.textContent = weapon.name;
+    }, 1800 + idx * 400);
   });
 }

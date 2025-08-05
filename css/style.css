@@ -93,6 +93,31 @@
   letter-spacing: 0.2px;
 }
 
+.main-container > .weapon-container {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.main-container > .weapon-container > .weapon-box {
+  background: #23272f;
+  border-radius: 19px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  padding: 19px 24px;
+  text-align: center;
+}
+
+.main-container > .weapon-container > .weapon-box img {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  background: #fff;
+  border: 2px solid #e0e0e0;
+}
+
 .spin-btn {
   display: block;
   margin: 24px auto 0 auto;
